@@ -4,9 +4,8 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<title></title>
+<title>회원정보 수정</title>
 </head>
-
 <body>
 	<%
 		String id = request.getParameter("id");
@@ -16,10 +15,9 @@
 	%>
 
 	<h2>회원 정보 수정하기</h2>
-
+	<form action="MemberUpdateProc.jsp" method="post">
+		<table width="400" border="1">
 	
-		<table wdith="400" border="1">
-		<form action="MemberUpdateProc.jsp" method="post">
 			<tr height="50">
 				<td align="center" width="150">아이디</td>
 				<td width="250"><%=mbean.getId()%></td>
@@ -42,16 +40,14 @@
 
 <tr height="50">
 <td align="center" colspan="2">
-
-<input type="submit" value="회원수정하기">&nbsp;&nbsp;</form>
 <input type="hidden" name="id" value=<%=mbean.getId()%>>
+<input type="submit" value="회원수정하기">&nbsp;&nbsp;</form>
+
 <button onclick="location.href='MemberList.jsp'">회원전체보기</button>
 </td>
 </tr>
-
-
 		</table>
-	
 
 </body>
 </html>
+

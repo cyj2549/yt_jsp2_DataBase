@@ -149,15 +149,15 @@ public class MemberDAO {
 	//한 회원의 패스워드 값을 리턴하는 메소드 작성
 	public String getPass(String id) {
 		
-		String passs=""; //스트링으로 리턴을 해야하기에 스트링변수 선언
+		String pass=""; //스트링으로 리턴을 해야하기에 스트링변수 선언
 		
 		try {
 			getCon();
 			
-			String sql = "select pass1 from member where id = ? ";			
+			String sql = "select pass1 from member where id = ?";	//쿼리준비		
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1,id);			
-			rs=pstmt.executeQuery();
+			pstmt.setString(1,id);			//?에 값을 맵핑
+			rs=pstmt.executeQuery(); // 쿼리실행
 			
 			if(rs.next()) {
 				pass=rs.getString(1); //패스워드값이 저장된 컬럼인덱스가 1번이기 때문에
@@ -165,12 +165,9 @@ public class MemberDAO {
 			
 			con.close(); //자원반납
 		}catch(Exception e){
-			e.printStackTrace();
-			
+			e.printStackTrace();	
 		}
-		
-		return passs;
-		
+		return pass;
 	}
 	
 	
@@ -180,7 +177,7 @@ public class MemberDAO {
 		getCon();
 		
 		try {
-			String sql = "update member set mail=?, tel=? where id =?"; //쿼리준비
+			String sql = "update member set email=?, tel=? where id =?"; //쿼리준비
 			pstmt = con.prepareStatement(sql); //쿼리실행 객체 선언
 			
 			//?에 값을 맵핑
@@ -188,10 +185,31 @@ public class MemberDAO {
 			pstmt.setString(2, bean.getTel());
 			pstmt.setString(3, bean.getId());
 			
-			pstmt.executeUpdate(); //쿼리실행
+			pstmt.executeUpdate();
 			
 			con.close(); //자원반납
 		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+	}
+	
+	//한 회원을 삭제하는 메소드 작성
+	public void deleteMember(String id) {
+		
+		getCon();
+		
+		try {
+			String sql = "delete from member where id = ? "; //쿼리준비
+			
+			pstmt = con.prepareStatement(sql);	// 쿼리실행 객체선언
+			pstmt.setString(1,id); // ?에 값을 맵핑
+			pstmt.executeUpdate(); // 쿼리 실행
+			System.out.println("삭제삭제");	
+			con.close(); // 자원반납
+
+			
+		}catch(Exception e){
 			e.printStackTrace();
 			
 		}
